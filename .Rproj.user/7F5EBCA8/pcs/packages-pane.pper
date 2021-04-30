@@ -1,0 +1,7 @@
+{
+    "installOptions": {
+        "installFromRepository": true,
+        "libraryPath": "C:/Users/hswerdfe/Documents/R/R-4.0.4/library",
+        "installDependencies": true
+    }
+}

@@ -1,0 +1,8 @@
+
+
+
+# Downloads all the shp files
+
+
+base_url <- 'https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers'
+base_url

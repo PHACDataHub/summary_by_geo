@@ -1,0 +1,35 @@
+
+#Census Division
+lcd_000a16a_e
+
+
+#census sub division
+lcsd000a16a_e
+
+#CMACA
+lcma000a16a_e
+
+
+
+https://www150.statcan.gc.ca/n1/en/pub/82-402-x/2018001/data-donnees/boundary-limites/mapinfo/HR_000b18m-eng.zip?st=euRKME69
+https://www150.statcan.gc.ca/n1/en/pub/82-402-x/2018001/data-donnees/boundary-limites/arcinfo/Cart2018_ArcGIS-eng.zip?st=5lmqac1Y
+
+#CT = Census tracts
+lct_000a16a_e
+https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/2016/lct_000a16a_e.zip
+
+
+#DPL = Designated places
+https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/2016/ldpl000a16a_e.zip
+
+
+#ER = Economic region
+https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/2016/ler_000a16a_e.zip
+
+
+#FED = Federal electoral districts (2013 Representation Order)
+https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/2016/lfed000a16a_e.zip
+
+
+#DA = Dissemination areas
+https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/files-fichiers/2016/lda_000a16a_e.zip

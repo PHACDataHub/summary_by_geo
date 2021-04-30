@@ -1,0 +1,33 @@
+library(ggplot2); library(sf); 
+library(tmap); library(tidyverse)
+library(here) # project directory
+
+data(World) # sf object from tmap; Provides Africa polygon
+
+# 'd' data pulled from acleddata.com/data, restricted to Aug 18 2017  - Aug 18 2018, Region: N/S/E/W/Middle Africa only
+d <- read.csv(here('2017-08-18-2018-08-18-Eastern_Africa-Middle_Africa-Northern_Africa-Southern_Africa-Western_Africa.csv'))
+dsf <- st_as_sf(d, coords = c('longitude', 'latitude'), crs = 4326)
+
+
+set_api_key("CensusMapper_f576d7387e63a3771bcbd77d60696363", install = TRUE)
+list_census_datasets()
+
+
+
+library(cancensus)
+library(sf)
+# retrieve sf dataframe
+toronto <- get_census(dataset='CA16', regions=list(CMA="35535"),
+                      vectors=c("median_hh_income"="v_CA16_2397"), level='CSD', quiet = TRUE, 
+                      geo_format = 'sf', labels = 'short')
+plot(toronto["median_hh_income"], main = "Toronto Household Income by CSD")
+ggplot(toronto) + geom_sf(aes(fill = median_hh_income))
+
+
+ggplot(toronto) + geom_sf(aes(fill = median_hh_income), colour = "grey") +
+  scale_fill_viridis_c("Median HH Income", labels = scales::dollar) + theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) + 
+  coord_sf(datum=NA) +
+  labs(title = "Median Household Income", subtitle = "Toronto Census Subdivisions, 2016 Census")
