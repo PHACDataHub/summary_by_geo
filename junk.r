@@ -159,3 +159,32 @@ statcan_census_geographies() %>%
   pull(geo_uid) %>%
   statcan_census_profile() %>% view()
 
+############################################
+#'
+#' Multi core performance benchmarking script using the ONSR package
+#' Additional cores will only work Linux VMs or Docker containers
+#'  
+
+library(onsr)
+library(dplyr)
+library(parallel)
+
+set.seed(123)
+df_fsa <- census_get_geographies(geos = "FSA", cpt = 00, lang = "E") %>%
+  select(GEO_UID) %>%
+  sample_n(50) %>%
+  pull()
+
+
+# Benchmark on a single core
+tic <- Sys.time()
+df_mc <- census_get_data(df_fsa)
+toc <- Sys.time()
+print(toc - tic)
+
+# Benchmark on 16 cores
+tic <- Sys.time()
+df_mc_actual <- mclapply(df_fsa, census_get_data_one, mc.cores = if_else(Sys.info()['sysname'] == "Windows", 1, 16)) %>% bind_rows()
+toc <- Sys.time()
+print(toc - tic)
+
