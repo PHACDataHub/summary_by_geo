@@ -325,13 +325,19 @@ statcan_code_2_nm <- function(val){
 #'
 #' given a cpt, like "Ontario" and a geos type like 'HR' or 'csd' or 'fsa' gives back a profile of all relevant areas.
 #'
-statcan_census_profiles_from_from_geo <- function(cpt = "00", geos = "HR", profile_args = list(), geo_args = list()){
+#' @example 
+#' statcan_census_profiles_from_from_geo(cpt = "46", geos = 'fsa', profile_args = list(topic=14))
+#' statcan_census_profiles_from_from_geo(cpt = "Manitoba", geos = 'fsa', profile_args = list(topic=14))
+#' 
+statcan_census_profiles_from_from_geo <- function(cpt = "00", geos = "HR", lang = "E", profile_args = list(), geo_args = list()){
   geo_args["cpt"] <- cpt
   geo_args["geos"] <- geos
+  geo_args["lang"] <- lang
   
   geo_uids <- do.call(statcan_geo_uid_from_geo, geo_args)
   
   profile_args[['geo_uids']] <- geo_uids
+  profile_args[["lang"]] <- lang
   do.call(statcan_census_profiles, profile_args)
 }
 
@@ -356,7 +362,7 @@ statcan_census_profiles <- function(geo_uids, ...){
 #'
 #' returns a vector of  geo_uids that can be mapped into  statcan_census_profile
 #'
-#'
+#' statcan_geo_uid_from_geo(cpt = "Manitoba", geos = 'fsa')
 statcan_geo_uid_from_geo <- function(cpt = "00", geos = "HR", ...){
   cpt <- statcan_nm_2_code(cpt)
   geos <- statcan_nm_2_code(geos)
@@ -379,8 +385,8 @@ statcan_census_profile <- function(geo_uid, topic=14, notes=1, stat=0, type = "j
   stat <- statcan_nm_2_code(stat)
   lang <- statcan_nm_2_code(lang)
   
-  url_template = "https://www12.statcan.gc.ca/rest/census-recensement/CPR2016.{type}?lang={lang}&dguid={geo_uid}&topic={topic}&notes{notes}0&stat={stat}"
-  
+  #url_template = "https://www12.statcan.gc.ca/rest/census-recensement/CPR2016.{type}?lang={lang}&dguid={geo_uid}&topic={topic}&notes{notes}0&stat={stat}"
+  url_template = "https://www12.statcan.gc.ca/rest/census-recensement/CPR2016.{type}?lang={lang}&dguid={geo_uid}&topic={topic}&notes={notes}&stat={stat}"
   url_template %>% 
     glue() %>% 
     statcan_url()
